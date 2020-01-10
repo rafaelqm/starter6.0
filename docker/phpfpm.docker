@@ -1,0 +1,80 @@
+FROM php:7.4.1-fpm
+
+RUN apt-get update && apt-get upgrade -f -y && apt-get -f -y install unzip wget
+
+WORKDIR /var/www
+
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libpng-dev \
+    libjpeg62-turbo-dev \
+    libfreetype6-dev \
+    locales \
+    zip \
+    jpegoptim optipng pngquant gifsicle \
+    vim \
+    unzip \
+    git \
+    curl \
+    mariadb-client-10.3
+
+RUN apt-get install -y freetds-bin freetds-dev freetds-common \
+    libxml2-dev libxslt-dev libaio1 libmcrypt-dev libreadline-dev
+
+RUN docker-php-ext-install pdo pdo_mysql gd calendar exif
+RUN docker-php-ext-install gettext pcntl mysqli shmop bcmath
+RUN docker-php-ext-install sockets sysvmsg sysvsem sysvshm xsl opcache
+
+RUN docker-php-ext-install ctype json soap tokenizer
+RUN apt-get update && apt-get install -y \
+    zlib1g-dev \
+    libzip-dev
+RUN docker-php-ext-install zip
+
+
+RUN cd ~ && wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz
+RUN cd ~ && tar -xvf wkhtmltox-0.12.4_linux-generic-amd64.tar.xz
+RUN cd ~ && cd wkhtmltox/bin/ && mv wkhtmltopdf  /usr/bin/wkhtmltopdf
+RUN cd ~/wkhtmltox/bin/ && mv wkhtmltoimage  /usr/bin/wkhtmltoimage
+RUN ln -s /usr/bin/wkhtmltopdf /usr/local/bin/wkhtmltopdf
+RUN apt-get clean
+RUN update-ca-certificates -f
+RUN apt-get update
+RUN apt-get install libfontconfig1 libxrender1 -f -y
+RUN apt-get remove libssl-dev
+RUN apt-get autoremove -y -f
+RUN apt-get update
+
+RUN apt install multiarch-support lsb-base
+RUN cd ~ && wget http://archive.ubuntu.com/ubuntu/pool/main/libj/libjpeg-turbo/libjpeg-turbo8_1.4.2-0ubuntu3.3_amd64.deb
+RUN cd ~ && dpkg -i libjpeg-turbo8_1.4.2-0ubuntu3.3_amd64.deb
+RUN cd ~ && wget http://archive.ubuntu.com/ubuntu/pool/main/libp/libpng/libpng12-0_1.2.54-1ubuntu1.1_amd64.deb
+RUN cd ~ && dpkg -i libpng12-0_1.2.54-1ubuntu1.1_amd64.deb
+RUN cd ~ && wget http://archive.ubuntu.com/ubuntu/pool/main/libf/libfontenc/libfontenc1_1.1.3-1_amd64.deb
+RUN cd ~ && dpkg -i libfontenc1_1.1.3-1_amd64.deb
+RUN cd ~ && wget http://archive.ubuntu.com/ubuntu/pool/main/libx/libxfont/libxfont1_1.5.1-1ubuntu0.16.04.4_amd64.deb
+RUN cd ~ && dpkg -i libxfont1_1.5.1-1ubuntu0.16.04.4_amd64.deb
+RUN cd ~ && wget http://archive.ubuntu.com/ubuntu/pool/main/x/xorg/x11-common_7.7+13ubuntu3.1_all.deb
+RUN cd ~ && dpkg -i x11-common_7.7+13ubuntu3.1_all.deb
+RUN cd ~ && wget http://archive.ubuntu.com/ubuntu/pool/main/x/xfonts-encodings/xfonts-encodings_1.0.4-2_all.deb
+RUN cd ~ && dpkg -i xfonts-encodings_1.0.4-2_all.deb
+RUN cd ~ && wget http://archive.ubuntu.com/ubuntu/pool/main/x/xfonts-utils/xfonts-utils_7.7+3ubuntu0.16.04.2_amd64.deb
+RUN cd ~ && dpkg -i xfonts-utils_7.7+3ubuntu0.16.04.2_amd64.deb
+RUN cd ~ && wget http://archive.ubuntu.com/ubuntu/pool/main/x/xfonts-base/xfonts-base_1.0.4+nmu1_all.deb
+RUN cd ~ && dpkg -i xfonts-base_1.0.4+nmu1_all.deb
+RUN cd ~ && wget http://archive.ubuntu.com/ubuntu/pool/universe/x/xfonts-75dpi/xfonts-75dpi_1.0.4+nmu1_all.deb
+RUN cd ~ && dpkg -i xfonts-75dpi_1.0.4+nmu1_all.deb
+
+RUN cd ~ && wget http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.0.0_1.0.2g-1ubuntu4.15_amd64.deb
+RUN cd ~ && dpkg -i libssl1.0.0_1.0.2g-1ubuntu4.15_amd64.deb
+RUN cd ~ && wget http://archive.ubuntu.com/ubuntu/pool/main/f/fontconfig/fontconfig_2.11.94-0ubuntu1.1_amd64.deb
+RUN cd ~ && dpkg -i fontconfig_2.11.94-0ubuntu1.1_amd64.deb
+RUN cd ~ && wget https://downloads.wkhtmltopdf.org/0.12/0.12.5/wkhtmltox_0.12.5-1.xenial_amd64.deb
+RUN cd ~ && dpkg -i wkhtmltox_0.12.5-1.xenial_amd64.deb
+
+RUN sed -i 's/TLSv1.2/TLSv1.0/g' /etc/ssl/openssl.cnf
+
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
