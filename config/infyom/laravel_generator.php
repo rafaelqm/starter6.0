@@ -11,7 +11,7 @@ return [
 
     'path' => [
         'migration' => database_path('migrations/'),
-        'model' => app_path('Models/'),
+        'model' => app_path(''),
         'datatables' => app_path('DataTables/'),
         'repository' => app_path('Repositories/'),
         'routes' => base_path('routes/web.php'),
@@ -40,7 +40,7 @@ return [
     */
 
     'namespace' => [
-        'model' => 'App\Models',
+        'model' => 'App',
         'datatables' => 'App\DataTables',
         'repository' => 'App\Repositories',
         'controller' => 'App\Http\Controllers',
