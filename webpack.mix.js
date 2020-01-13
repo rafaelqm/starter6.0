@@ -11,5 +11,23 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+mix.js('resources/js/app.js', 'public/js').
+  extract([
+    'vue',
+    'bootstrap',
+    'jquery',
+    'lodash',
+    'popper.js',
+    'axios',
+    '@coreui/coreui',
+    '@coreui/icons',
+    'moment',
+    'perfect-scrollbar',
+    'datatables.net']).
+  sass('resources/sass/app.scss', 'public/css').
+  copy(
+    'resources/js/libs/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js',
+    'public/js/bootstrap-datetimepicker.min.js').
+  copy(
+    'resources/js/libs/bootstrap-datetimepicker/bootstrap-datetimepicker.css',
+    'public/css/bootstrap-datetimepicker.css');
