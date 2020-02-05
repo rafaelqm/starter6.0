@@ -11,10 +11,10 @@
         } else {
             params.visible_columns = null;
         }
-        
+
         return params;
     };
-    
+
     var _getVisibleColumns = function () {
 
         var visible_columns = [];
@@ -85,7 +85,7 @@
         if (url.indexOf('?') > -1) {
             return url + '&' + $.param(params);
         }
-        
+
         return url + '?' + $.param(params);
     };
 
@@ -116,7 +116,7 @@
             _downloadFromUrl(url, params);
         }
     };
-    
+
     DataTable.ext.buttons.postExcelVisibleColumns = {
         className: 'buttons-excel',
 
@@ -171,7 +171,7 @@
             _downloadFromUrl(url, params);
         }
     };
-    
+
     DataTable.ext.buttons.postCsv = {
         className: 'buttons-csv',
 
@@ -282,3 +282,23 @@
         });
     }
 })(jQuery, jQuery.fn.dataTable);
+
+function stateValuesOnFilters(oSettings) {
+    var cols = oSettings.aoPreSearchCols;
+    for (var i = 0; i < cols.length; i++) {
+        var value = cols[i].sSearch;
+        if (value.length > 0) {
+            $($("tfoot th")[i]).find('input:not([type="checkbox"])').val(value);
+            $($("tfoot th")[i]).find('select').val(value);
+            $($("tfoot th")[i]).find('select').trigger('change');
+        }
+    }
+}
+
+
+function clearFilters(){
+    var objFiltros = $('.headFilter');
+    objFiltros.val('');
+    objFiltros.trigger('change');
+    $('#dataTableBuilder').DataTable().search("").draw();
+}

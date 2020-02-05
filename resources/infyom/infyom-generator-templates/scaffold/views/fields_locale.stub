@@ -2,6 +2,11 @@ $FIELDS$
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
-    {!! Form::submit(__('crud.save'), ['class' => 'btn btn-primary']) !!}
-    <a href="{{ route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.index') }}" class="btn btn-default">@lang('crud.cancel')</a>
+    <button type="submit" class="btn btn-primary float-right">
+        <i class="far fa-save"></i> {{ __('crud.save') }}
+    </button>
+    <a href="{{ route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.index') }}" class="btn btn-default">
+        <i class="fas fa-times"></i>
+        {{ __('crud.cancel') }}
+    </a>
 </div>
