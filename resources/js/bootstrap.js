@@ -15,9 +15,15 @@ try {
   // require('@coreui/icons');
   window.moment = require('moment');
   // window.dt = require('datatables.net');
+  window.$body = $(document.body);
+  window.$document = $(document);
 
   require( '../../node_modules/datatables.net/js/jquery.dataTables.js' );
   require( '../../node_modules/datatables.net-dt/js/dataTables.dataTables.js' );
+  require('select2');
+  require('select2/dist/js/i18n/pt-BR');
+  require('jquery-mask-plugin');
+
 }
 catch (e) {}
 

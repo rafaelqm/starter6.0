@@ -90,6 +90,7 @@
 <script src="{{ asset('js/vendor.js') }}"></script>
 <script src="{{ asset('js/manifest.js') }}"></script>
 <script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset('js/global_inits.js') }}"></script>
 <script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
 @yield('scripts')
 

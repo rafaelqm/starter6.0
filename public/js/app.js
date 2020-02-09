@@ -1097,9 +1097,18 @@ try {
 
   window.moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"); // window.dt = require('datatables.net');
 
+  window.$body = $(document.body);
+  window.$document = $(document);
+
   __webpack_require__(/*! ../../node_modules/datatables.net/js/jquery.dataTables.js */ "./node_modules/datatables.net/js/jquery.dataTables.js");
 
   __webpack_require__(/*! ../../node_modules/datatables.net-dt/js/dataTables.dataTables.js */ "./node_modules/datatables.net-dt/js/dataTables.dataTables.js");
+
+  __webpack_require__(/*! select2 */ "./node_modules/select2/dist/js/select2.js");
+
+  __webpack_require__(/*! select2/dist/js/i18n/pt-BR */ "./node_modules/select2/dist/js/i18n/pt-BR.js");
+
+  __webpack_require__(/*! jquery-mask-plugin */ "./node_modules/jquery-mask-plugin/dist/jquery.mask.js");
 } catch (e) {}
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

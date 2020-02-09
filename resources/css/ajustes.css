@@ -1,0 +1,7 @@
+.dataTable tfoot {
+    display: table-header-group;
+}
+
+#dataTableBuilder_filter {
+    float: left;
+}

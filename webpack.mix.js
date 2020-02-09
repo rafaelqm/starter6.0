@@ -23,11 +23,14 @@ mix.js('resources/js/app.js', 'public/js').
     '@coreui/icons',
     'moment',
     'perfect-scrollbar',
-    'datatables.net']).
+    'datatables.net',
+    'select2',
+    'jquery-mask-plugin']).
   sass('resources/sass/app.scss', 'public/css').
   copy(
     'resources/js/libs/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js',
     'public/js/bootstrap-datetimepicker.min.js').
   copy(
     'resources/js/libs/bootstrap-datetimepicker/bootstrap-datetimepicker.css',
-    'public/css/bootstrap-datetimepicker.css');
+    'public/css/bootstrap-datetimepicker.css')
+  .copy('resources/js/global_inits.js', 'public/js/global_inits.js');
