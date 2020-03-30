@@ -58,7 +58,13 @@ class $MODEL_NAME$Controller extends AppBaseController
 
         $$MODEL_NAME_CAMEL$ = $this->$MODEL_NAME_CAMEL$Repository->create($input);
 
-        Flash::success('$MODEL_NAME_HUMAN$ saved successfully.');
+        Flash::success(
+            sprintf(
+                "$MODEL_NAME_HUMAN$ %s %s",
+                trans('crud.saved'),
+                trans('crud.successfully')
+            )
+        );
 
         return redirect(route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.index'));
     }
@@ -123,7 +129,13 @@ class $MODEL_NAME$Controller extends AppBaseController
 
         $$MODEL_NAME_CAMEL$ = $this->$MODEL_NAME_CAMEL$Repository->update($request->all(), $id);
 
-        Flash::success('$MODEL_NAME_HUMAN$ updated successfully.');
+        Flash::success(
+            sprintf(
+                "$MODEL_NAME_HUMAN$ %s %s",
+                trans('crud.updated'),
+                trans('crud.successfully')
+            )
+        );
 
         return redirect(route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.index'));
     }
@@ -157,7 +169,13 @@ class $MODEL_NAME$Controller extends AppBaseController
             );
         }
 
-        Flash::success('$MODEL_NAME_HUMAN$ deleted successfully.');
+        Flash::success(
+            sprintf(
+                "$MODEL_NAME_HUMAN$ %s %s",
+                trans('crud.deleted'),
+                trans('crud.successfully')
+            )
+        );
 
         return redirect(route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.index'));
     }

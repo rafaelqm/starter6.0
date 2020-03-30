@@ -55,7 +55,13 @@ class UserController extends AppBaseController
 
         $user = $this->userRepository->create($input);
 
-        Flash::success('User saved successfully.');
+        Flash::success(
+            sprintf(
+                "Usuário %s %s",
+                trans('crud.saved'),
+                trans('crud.successfully')
+            )
+        );
 
         return redirect(route('users.index'));
     }
@@ -63,7 +69,7 @@ class UserController extends AppBaseController
     /**
      * Display the specified User.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return Response
      */
@@ -83,7 +89,7 @@ class UserController extends AppBaseController
     /**
      * Show the form for editing the specified User.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return Response
      */
@@ -103,7 +109,7 @@ class UserController extends AppBaseController
     /**
      * Update the specified User in storage.
      *
-     * @param  int              $id
+     * @param int $id
      * @param UpdateUserRequest $request
      *
      * @return Response
@@ -120,7 +126,13 @@ class UserController extends AppBaseController
 
         $user = $this->userRepository->update($request->all(), $id);
 
-        Flash::success('User updated successfully.');
+        Flash::success(
+            sprintf(
+                "Usuário %s %s",
+                trans('crud.updated'),
+                trans('crud.successfully')
+            )
+        );
 
         return redirect(route('users.index'));
     }
@@ -128,7 +140,7 @@ class UserController extends AppBaseController
     /**
      * Remove the specified User from storage.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return Response
      */
@@ -142,7 +154,7 @@ class UserController extends AppBaseController
             return redirect(route('users.index'));
         }
 
-        $user->email = 'deleted_'.$user->email;
+        $user->email = 'deleted_' . $user->email;
         $user->save();
         $this->userRepository->delete($id);
 
@@ -154,7 +166,13 @@ class UserController extends AppBaseController
             );
         }
 
-        Flash::success('User deleted successfully.');
+        Flash::success(
+            sprintf(
+                "Usuário %s %s",
+                trans('crud.deleted'),
+                trans('crud.successfully')
+            )
+        );
 
         return redirect(route('users.index'));
     }

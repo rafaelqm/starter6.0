@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\User;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
@@ -26,6 +27,21 @@ class UserDataTable extends DataTable
                 }
                 return $obj->active ? 'Ativo' : 'Inativo';
             })
+            ->filterColumn('created_at', function ($query, $keyword) {
+                $query->whereRaw("DATE_FORMAT(created_at,'%d/%m/%Y %H:%i') like ?", ["%$keyword%"]);
+            })
+            ->editColumn('created_at', function ( $obj ) {
+                return $obj->created_at->format('d/m/Y H:i');
+            })
+            ->filterColumn('role_names', function ($query, $keyword) {
+                $query->whereRaw("EXISTS (
+                        SELECT 1
+                        FROM roles
+                        JOIN role_user ON role_user.role_id = roles.id
+                        WHERE role_user.user_id = users.id
+                        AND roles.name like ?
+                         )", ["%$keyword%"]);
+            })
             ->rawColumns(
                 [
                     'active',
@@ -42,7 +58,18 @@ class UserDataTable extends DataTable
      */
     public function query(User $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()
+            ->select(
+                [
+                    'users.*',
+                    DB::raw("(
+                        SELECT GROUP_CONCAT(roles.name SEPARATOR ', ')
+                        FROM roles
+                        JOIN role_user ON role_user.role_id = roles.id
+                        WHERE role_user.user_id = users.id
+                        ) as role_names")
+                ]
+            );
     }
 
     /**
@@ -115,6 +142,16 @@ class UserDataTable extends DataTable
                 'name' => 'email',
                 'data' => 'email',
                 'title' => 'E-Mail'
+            ],
+            'role_names' => [
+                'title' => 'cargos',
+            ],
+            'created_at' => [
+                'name' => 'created_at',
+                'data' => 'created_at',
+                'title' => 'Cadastro em',
+                'width' => '10%',
+                'class' => 'text-center'
             ],
             'active' => [
                 'name' => 'active',
