@@ -2,13 +2,15 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use jeremykenedy\LaravelRoles\Traits\HasRoleAndPermission;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, SoftDeletes, HasRoleAndPermission;
 
     /**
      * The attributes that are mass assignable.
@@ -35,5 +37,22 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+    ];
+
+    /**
+     * Validation rules
+     *
+     * @var array
+     */
+    public static $rules = [
+        'name' => 'required',
+        'email' => 'required|unique:users,email',
+        'password' => 'required',
+        'roles' => 'required',
+        'roles.*' => 'sometimes|exists:roles,id'
+    ];
+
+    public static $messages = [
+        'roles.required' => 'Escolha pelo menos um papel/cargo',
     ];
 }

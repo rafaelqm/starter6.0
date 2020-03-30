@@ -20,9 +20,11 @@ try {
 
   require( '../../node_modules/datatables.net/js/jquery.dataTables.js' );
   require( '../../node_modules/datatables.net-dt/js/dataTables.dataTables.js' );
+  require('../../resources/js/modernizr-inputtypes.js');
   require('select2');
   require('select2/dist/js/i18n/pt-BR');
   require('jquery-mask-plugin');
+  require('sweetalert');
 
 }
 catch (e) {}

@@ -27,6 +27,62 @@ $(function () {
   $('.hora').mask('99:99');
   $('.money').mask('0.000.000.000.000,00', {reverse: true});
 
+    $('.datetimepicker').datetimepicker({
+        format: 'DD/MM/YYYY HH:mm:ss',
+        useCurrent: true,
+        icons: {
+            up: 'icon-arrow-up-circle icons font-2xl',
+            down: 'icon-arrow-down-circle icons font-2xl',
+        },
+        sideBySide: true,
+    });
+    $('.datepicker').datetimepicker({
+        format: 'DD/MM/YYYY',
+        useCurrent: true,
+        icons: {
+            up: 'icon-arrow-up-circle icons font-2xl',
+            down: 'icon-arrow-down-circle icons font-2xl',
+        },
+        sideBySide: true,
+    });
+
+    if (!Modernizr.inputtypes.date) {
+        $('input[type=date]').each(function(index, obj) {
+            var data = $(obj).val();
+            if (data != '' && (data.indexOf('-') > 1)) {
+                var ano = data.substring(0, 4);
+                var mes = data.substring(5, 7);
+                var dia = data.substring(8, 10);
+                var data_formatada = dia + '/' + mes + '/' + ano;
+
+                $(obj)
+                .attr('type', 'text')
+                .val(data_formatada)
+                .datetimepicker({
+                    format: 'DD/MM/YYYY',
+                    useCurrent: true,
+                    icons: {
+                        up: 'icon-arrow-up-circle icons font-2xl',
+                        down: 'icon-arrow-down-circle icons font-2xl',
+                    },
+                    sideBySide: true,
+                });
+            }
+        });
+
+        $('input[type=date]')
+        .attr('type', 'text')
+        .datetimepicker({
+            format: 'DD/MM/YYYY',
+            useCurrent: true,
+            icons: {
+                up: 'icon-arrow-up-circle icons font-2xl',
+                down: 'icon-arrow-down-circle icons font-2xl',
+            },
+            sideBySide: true,
+        });
+    }
+
   $('.select2').each(function (n, el) {
     var $el = $(el);
     var placeholder = $el.find('[value=""]').first().text()

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>{{config('app.name')}}</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- Bootstrap 4.1.1 -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
@@ -93,5 +94,63 @@
 <script src="{{ asset('js/global_inits.js') }}"></script>
 <script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
 @yield('scripts')
+<script type="text/javascript">
+    function askDelete(id, route) {
+        swal({
+            title: "{{ ucfirst( __('crud.are_you_sure') ) }}?",
+            text: "{{ ucfirst( __('crud.you-will-not-be-able-to-recover-this-registry') ) }}!",
+            icon: "warning",
+            buttons: {
+                cancel: {
+                    text: "{{ ucfirst( __('crud.cancel') ) }}",
+                    value: null,
+                    visible: true,
+                    className: "",
+                    closeModal: true,
+                },
+                confirm: {
+                    text: "{{ ucfirst( __('crud.yes') ) }}, {{ ucfirst( __('crud.delete') ) }}!",
+                    value: true,
+                    visible: true,
+                    className: "",
+                    closeModal: false
+                }
+            },
+            dangerMode: true
+        })
+        .then(function (willDelete) {
+            if (willDelete) {
+                sureDelete(id, route);
+            }
+        });
+    }
+    function sureDelete(id, route) {
+        $.post(route, {
+            'id' : id,
+            "_method": "DELETE",
+            '_token' : $('meta[name="csrf-token"]').attr('content'),
+            type: "POST"
+        }).done(function(retorno) {
+            swal('{{ ucfirst( __('crud.deleted') ) }}', '', 'success');
+            window.LaravelDataTables["dataTableBuilder"].draw(false);
+        }).fail(function(response) {
+            var text = response.responseJSON ? response.responseJSON.error : false;
+            var link = response.responseJSON ? response.responseJSON.link_option : false;
+            var type = response.responseJSON ? response.responseJSON.type : false;
 
+            var options = {
+                title: '',
+                text: text || 'Error',
+                type: type || 'error'
+            };
+
+            swal(options)
+            .then(function(isConfirm) {
+                if(!isConfirm && link && link.length) {
+                    location.href = link;
+                }
+            });
+        });
+    }
+</script>
 </html>

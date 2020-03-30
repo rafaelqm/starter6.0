@@ -17,5 +17,21 @@ Route::get('/', function () {
 
 
 Auth::routes();
+$router->group(
+    [
+        'middleware' => 'auth',
+        'prefix' => '/'
+    ],
+    function () use ($router) {
+        $router->get('/home', 'HomeController@index');
 
-Route::get('/home', 'HomeController@index');
+        require 'web/users.routes.php';
+
+
+// --------------------------------- END roles
+    }
+);
+//
+//Route::get('/home', 'HomeController@index');
+//
+//Route::resource('users', 'UserController');

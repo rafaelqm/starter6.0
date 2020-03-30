@@ -25,7 +25,8 @@ mix.js('resources/js/app.js', 'public/js').
     'perfect-scrollbar',
     'datatables.net',
     'select2',
-    'jquery-mask-plugin']).
+    'jquery-mask-plugin',
+    'sweetalert']).
   sass('resources/sass/app.scss', 'public/css').
   copy(
     'resources/js/libs/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js',

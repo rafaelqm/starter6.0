@@ -149,6 +149,14 @@ class $MODEL_NAME$Controller extends AppBaseController
 
         $this->$MODEL_NAME_CAMEL$Repository->delete($id);
 
+        if (request()->ajax()) {
+            return response()->json(
+                [
+                    'success' => true,
+                ]
+            );
+        }
+
         Flash::success(__('messages.deleted', ['model' => __('models/$MODEL_NAME_PLURAL_CAMEL$.singular')]));
 
         return redirect(route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.index'));
