@@ -40,25 +40,30 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right">
                 <div class="dropdown-header text-center">
-                    <strong>Account</strong>
+                    <strong>Conta</strong>
                 </div>
                 <a class="dropdown-item" href="#">
                     <i class="fa fa-envelope-o"></i> Messages
                     <span class="badge badge-success">42</span>
                 </a>
+
                 <div class="dropdown-header text-center">
-                    <strong>Settings</strong>
+                    <strong>Configurações</strong>
                 </div>
-                <a class="dropdown-item" href="#">
-                    <i class="fa fa-user"></i> Profile</a>
-                <a class="dropdown-item" href="#">
-                    <i class="fa fa-wrench"></i> Settings</a>
+                <a class="dropdown-item" href="{{ url('/users/' . auth()->id() .'/edit') }}">
+                    <i class="fa fa-user"></i> Perfil
+                </a>
+{{--                <a class="dropdown-item" href="#">--}}
+{{--                    <i class="fa fa-wrench"></i> Configurações--}}
+{{--                </a>--}}
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">
-                    <i class="fa fa-shield"></i> Lock Account</a>
+{{--                <a class="dropdown-item" href="#">--}}
+{{--                    <i class="fa fa-shield"></i> Lock Account--}}
+{{--                </a>--}}
                 <a class="dropdown-item" href="{!! url('/logout') !!}" class="btn btn-default btn-flat"
                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    <i class="fa fa-lock"></i>Logout
+                    <i class="fa fa-lock"></i>
+                    Sair
                 </a>
                 <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
                     {{ csrf_field() }}
@@ -95,45 +100,45 @@
 <script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
 @yield('scripts')
 <script type="text/javascript">
-    function askDelete(id, route) {
+    function askDelete (id, route) {
         swal({
             title: "{{ ucfirst( __('crud.are_you_sure') ) }}?",
             text: "{{ ucfirst( __('crud.you-will-not-be-able-to-recover-this-registry') ) }}!",
-            icon: "warning",
+            icon: 'warning',
             buttons: {
                 cancel: {
                     text: "{{ ucfirst( __('crud.cancel') ) }}",
                     value: null,
                     visible: true,
-                    className: "",
+                    className: '',
                     closeModal: true,
                 },
                 confirm: {
                     text: "{{ ucfirst( __('crud.yes') ) }}, {{ ucfirst( __('crud.delete') ) }}!",
                     value: true,
                     visible: true,
-                    className: "",
-                    closeModal: false
-                }
+                    className: '',
+                    closeModal: false,
+                },
             },
-            dangerMode: true
-        })
-        .then(function (willDelete) {
+            dangerMode: true,
+        }).then(function (willDelete) {
             if (willDelete) {
                 sureDelete(id, route);
             }
         });
     }
-    function sureDelete(id, route) {
+
+    function sureDelete (id, route) {
         $.post(route, {
-            'id' : id,
-            "_method": "DELETE",
-            '_token' : $('meta[name="csrf-token"]').attr('content'),
-            type: "POST"
-        }).done(function(retorno) {
+            'id': id,
+            '_method': 'DELETE',
+            '_token': $('meta[name="csrf-token"]').attr('content'),
+            type: 'POST',
+        }).done(function (retorno) {
             swal('{{ ucfirst( __('crud.deleted') ) }}', '', 'success');
-            window.LaravelDataTables["dataTableBuilder"].draw(false);
-        }).fail(function(response) {
+            window.LaravelDataTables['dataTableBuilder'].draw(false);
+        }).fail(function (response) {
             var text = response.responseJSON ? response.responseJSON.error : false;
             var link = response.responseJSON ? response.responseJSON.link_option : false;
             var type = response.responseJSON ? response.responseJSON.type : false;
@@ -141,12 +146,11 @@
             var options = {
                 title: '',
                 text: text || 'Error',
-                type: type || 'error'
+                type: type || 'error',
             };
 
-            swal(options)
-            .then(function(isConfirm) {
-                if(!isConfirm && link && link.length) {
+            swal(options).then(function (isConfirm) {
+                if (!isConfirm && link && link.length) {
                     location.href = link;
                 }
             });

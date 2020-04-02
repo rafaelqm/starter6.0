@@ -96,6 +96,10 @@ class UserController extends AppBaseController
     public function edit($id)
     {
         $user = $this->userRepository->find($id);
+        if (auth()->user()->level() != 5 && $user->id != auth()->user()->id) {
+            Flash::error('Você não tem permissão de editar este usuário.');
+            return back();
+        }
 
         if (empty($user)) {
             Flash::error(__('messages.not_found', ['model' => 'Usuário']));
@@ -123,8 +127,13 @@ class UserController extends AppBaseController
 
             return redirect(route('users.index'));
         }
+        if (auth()->user()->level() != 5 && $user->id != auth()->user()->id) {
+            Flash::error('Você não tem permissão de editar este usuário.');
+            return back();
+        }
 
         $user = $this->userRepository->update($request->all(), $id);
+
 
         Flash::success(
             sprintf(
@@ -133,7 +142,9 @@ class UserController extends AppBaseController
                 trans('crud.successfully')
             )
         );
-
+        if (!auth()->user()->hasPermission('view.users')) {
+            return redirect(url('/home'));
+        }
         return redirect(route('users.index'));
     }
 

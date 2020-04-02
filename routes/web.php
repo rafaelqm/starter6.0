@@ -25,6 +25,10 @@ $router->group(
     function () use ($router) {
         $router->get('/home', 'HomeController@index');
 
+        $router->get('/users/{id}/edit', 'UserController@edit');
+        $router->patch('/users/{id}', 'UserController@update');
+        $router->put('/users/{id}', 'UserController@update');
+
         require 'web/users.routes.php';
         require 'web/roles.routes.php';
     }
