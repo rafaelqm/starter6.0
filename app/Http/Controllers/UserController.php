@@ -78,7 +78,7 @@ class UserController extends AppBaseController
         $user = $this->userRepository->find($id);
 
         if (empty($user)) {
-            Flash::error('User not found');
+            Flash::error(__('messages.not_found', ['model' => 'Usuário']));
 
             return redirect(route('users.index'));
         }
@@ -98,7 +98,7 @@ class UserController extends AppBaseController
         $user = $this->userRepository->find($id);
 
         if (empty($user)) {
-            Flash::error('User not found');
+            Flash::error(__('messages.not_found', ['model' => 'Usuário']));
 
             return redirect(route('users.index'));
         }
@@ -119,7 +119,7 @@ class UserController extends AppBaseController
         $user = $this->userRepository->find($id);
 
         if (empty($user)) {
-            Flash::error('User not found');
+            Flash::error(__('messages.not_found', ['model' => 'Usuário']));
 
             return redirect(route('users.index'));
         }
@@ -149,7 +149,7 @@ class UserController extends AppBaseController
         $user = $this->userRepository->find($id);
 
         if (empty($user)) {
-            Flash::error('User not found');
+            Flash::error(__('messages.not_found', ['model' => 'Usuário']));
 
             return redirect(route('users.index'));
         }

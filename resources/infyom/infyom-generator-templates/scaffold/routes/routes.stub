@@ -1,1 +1,65 @@
-Route::resource('$MODEL_NAME_PLURAL_CAMEL$', '$PATH_PREFIX$$MODEL_NAME$Controller');
+// $MODEL_NAME_PLURAL_CAMEL$
+$router->group(
+    [
+        'prefix' => '$ROUTE_PREFIX$$MODEL_NAME_PLURAL_CAMEL$'
+    ],
+    function () use ($router) {
+        $router->get(
+            '',
+            [
+                'as' => '$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.index',
+                'uses' => '$PATH_PREFIX$$MODEL_NAME$Controller@index'
+            ]
+        );
+        $router->post(
+            '',
+            [
+                'as' => '$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.store',
+                'uses' => '$PATH_PREFIX$$MODEL_NAME$Controller@store'
+            ]
+        );
+        $router->get(
+            '/create',
+            [
+                'as' => '$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.create',
+                'uses' => '$PATH_PREFIX$$MODEL_NAME$Controller@create'
+            ]
+        );
+        $router->put(
+            '/{$MODEL_NAME_PLURAL_CAMEL$}',
+            [
+                'as' => '$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.update',
+                'uses' => '$PATH_PREFIX$$MODEL_NAME$Controller@update'
+            ]
+        );
+        $router->patch(
+            '/{$MODEL_NAME_PLURAL_CAMEL$}',
+            [
+                'as' => '$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.update',
+                'uses' => '$PATH_PREFIX$$MODEL_NAME$Controller@update'
+            ]
+        );
+        $router->delete(
+            '/{$MODEL_NAME_PLURAL_CAMEL$}',
+            [
+                'as' => '$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.destroy',
+                'uses' => '$PATH_PREFIX$$MODEL_NAME$Controller@destroy'
+            ]
+        );
+        $router->get(
+            '/{$MODEL_NAME_PLURAL_CAMEL$}',
+            [
+                'as' => '$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.show',
+                'uses' => '$PATH_PREFIX$$MODEL_NAME$Controller@show'
+            ]
+        );
+        $router->get(
+            '/{$MODEL_NAME_PLURAL_CAMEL$}/edit',
+            [
+                'as' => '$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.edit',
+                'uses' => '$PATH_PREFIX$$MODEL_NAME$Controller@edit'
+            ]
+        );
+    }
+);
+// --------------------------------- END $MODEL_NAME_PLURAL_CAMEL$

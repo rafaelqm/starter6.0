@@ -110,13 +110,13 @@ class UserDataTable extends DataTable
                                 "<option value=\"1\">SIM</option>" +
                                 "<option value=\"0\">NÃO</option>"
                             );
-                            $(input).addClass(\'form-control select2\');
+                            $(input).addClass(\'select2\');
                         } else {
                             var input = document.createElement("input");
                         }
                         if((col+1)<max){
                             $(input).attr(\'placeholder\',\'Filtrar...\');
-                            $(input).addClass(\'form-control\');
+                            $(input).addClass(\'form-control headFilter\');
                             $(input).css(\'width\',\'100%\');
                             $(input).appendTo($(column.footer()).empty())
                             .on(\'change\', function () {

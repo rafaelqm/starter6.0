@@ -26,12 +26,6 @@ $router->group(
         $router->get('/home', 'HomeController@index');
 
         require 'web/users.routes.php';
-
-
-// --------------------------------- END roles
+        require 'web/roles.routes.php';
     }
 );
-//
-//Route::get('/home', 'HomeController@index');
-//
-//Route::resource('users', 'UserController');

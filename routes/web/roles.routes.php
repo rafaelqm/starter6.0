@@ -3,7 +3,7 @@
 $router->group(
     [
         'prefix' => 'roles',
-        'middleware' => 'permission:role.list',
+        'middleware' => 'permission:roles.view',
     ],
     function () use ($router) {
         $router->get(
@@ -20,7 +20,7 @@ $router->group(
                 'uses' => 'RoleController@store'
             ]
         )
-            ->middleware('permission:role.create');
+            ->middleware('permission:roles.create');
         $router->get(
             '/create',
             [
@@ -28,7 +28,7 @@ $router->group(
                 'uses' => 'RoleController@create'
             ]
         )
-            ->middleware('permission:role.create');
+            ->middleware('permission:roles.create');
         $router->put(
             '/{roles}',
             [
@@ -36,7 +36,7 @@ $router->group(
                 'uses' => 'RoleController@update'
             ]
         )
-            ->middleware('permission:role.edit');
+            ->middleware('permission:roles.edit');
         $router->patch(
             '/{roles}',
             [
@@ -51,7 +51,7 @@ $router->group(
                 'uses' => 'RoleController@destroy'
             ]
         )
-            ->middleware('permission:role.delete');
+            ->middleware('permission:roles.delete');
         $router->get(
             '/{roles}',
             [
@@ -66,6 +66,6 @@ $router->group(
                 'uses' => 'RoleController@edit'
             ]
         )
-            ->middleware('permission:edit.users');
+            ->middleware('permission:roles.edit');
     }
 );

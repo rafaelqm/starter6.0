@@ -3,9 +3,9 @@
 @section('content')
      <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="{{ route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.index') }}">$MODEL_NAME_HUMAN$</a>
+                <a href="{{ route('roles.index') }}">Papéis/Cargos</a>
             </li>
-            <li class="breadcrumb-item active">Detail</li>
+            <li class="breadcrumb-item active">Detalhes</li>
      </ol>
      <div class="container-fluid">
           <div class="animated fadeIn">
@@ -14,15 +14,14 @@
                      <div class="col-lg-12">
                          <div class="card">
                              <div class="card-header">
-                                 <strong>Details</strong>
-                                 <a href="{{ route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.index') }}"
-                                  class="btn btn-light float-right">
+                                 <strong>Detalhe</strong>
+                                 <a href="{{ route('roles.index') }}" class="btn btn-light float-right">
                                      <i class="fas fa-arrow-left"></i>
                                      {{ __('crud.back') }}
                                  </a>
                              </div>
                              <div class="card-body">
-                                 @include('$VIEW_PREFIX$$MODEL_NAME_PLURAL_SNAKE$.show_fields')
+                                 @include('roles.show_fields')
                              </div>
                          </div>
                      </div>

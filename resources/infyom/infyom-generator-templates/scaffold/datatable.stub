@@ -42,7 +42,7 @@ class $MODEL_NAME$DataTable extends DataTable
         return $this->builder()
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->addAction(['width' => '120px', 'printable' => false])
+            ->addAction(['width' => '120px', 'title' => 'Ações', 'printable' => false])
             ->parameters([
              'dom'       => 'Bfrltip',
              "pageLength" => 10,
@@ -61,16 +61,23 @@ class $MODEL_NAME$DataTable extends DataTable
              'initComplete' => 'function (oSettings) {
                  max = this.api().columns().count();
                  this.api().columns().every(function (col) {
-                     if((col+1)<max){
-                         var column = this;
+                     var column = this;
+                     if ((col+1) < max) {
                          var input = document.createElement("input");
                          $(input).attr(\'placeholder\',\'Filtrar...\');
-                         $(input).addClass(\'form-control\');
+                         $(input).addClass(\'form-control headFilter\');
                          $(input).css(\'width\',\'100%\');
                          $(input).appendTo($(column.footer()).empty())
                          .on(\'change\', function () {
                              column.search($(this).val(), false, false, true).draw();
                          });
+                     } else {
+                          var btnClear = document.createElement("button");
+                          $(btnClear).html("<i class='fa fa-recycle'></i>");
+                          $(btnClear).prop("title","Limpar Filtros");
+                          $(btnClear).prop("class","btn btn-xs btn-default");
+                          $(btnClear).attr("onclick","clearFilters()");
+                          $(btnClear).appendTo($(column.footer()).empty());
                      }
                  });
                  stateValuesOnFilters(oSettings);
