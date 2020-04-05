@@ -122,6 +122,13 @@ class UserDataTable extends DataTable
                             .on(\'change\', function () {
                                 column.search($(this).val(), false, false, true).draw();
                             });
+                        }  else {
+                            var btnClear = document.createElement("button");
+                            $(btnClear).html("<i class=\'fa fa-recycle\'></i>");
+                            $(btnClear).prop("title","Limpar Filtros");
+                            $(btnClear).prop("class","btn btn-xs btn-default");
+                            $(btnClear).attr("onclick","clearFilters()");
+                            $(btnClear).appendTo($(column.footer()).empty());
                         }
                     });
                     stateValuesOnFilters(oSettings);
