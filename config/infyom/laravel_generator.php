@@ -11,7 +11,7 @@ return [
 
     'path' => [
         'migration' => database_path('migrations/'),
-        'model' => app_path(''),
+        'model' => app_path('/'),
         'datatables' => app_path('DataTables/'),
         'repository' => app_path('Repositories/'),
         'routes' => base_path('routes/web.php'),
