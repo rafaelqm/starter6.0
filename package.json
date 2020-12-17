@@ -27,7 +27,7 @@
         "@coreui/coreui": "^2.1.16",
         "@coreui/icons": "^1.0.1",
         "@fortawesome/fontawesome-free": "^5.13.0",
-        "datatables.net": "^1.10.20",
+        "datatables.net": "^1.10.22",
         "datatables.net-dt": "^1.10.20",
         "jquery-mask-plugin": "^1.14.16",
         "moment": "^2.24.0",
